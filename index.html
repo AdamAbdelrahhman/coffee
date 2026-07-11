@@ -263,18 +263,20 @@
   /* ===== VISIT INFO ===== */
   .visit{
     padding:20px 6% 100px;max-width:1000px;margin:0 auto;
-    display:grid;grid-template-columns:1fr 1fr;gap:20px;
+    display:flex;justify-content:center;
   }
   .visit-card{
     background:var(--surface);
     border:1px solid var(--line);
     border-radius:18px;
-    padding:32px 28px;
+    padding:32px 40px;
+    max-width:340px;
+    text-align:center;
   }
   .visit-card h4{font-family:'Fraunces',serif;font-size:19px;color:var(--gold);margin-bottom:14px;font-weight:500;}
   .visit-card p{color:var(--cream);font-size:14.5px;line-height:2;}
   .visit-card p span{display:block;color:var(--muted);font-size:12.5px;}
-  @media(max-width:760px){.visit{grid-template-columns:1fr;}}
+  @media(max-width:760px){.visit-card{max-width:100%;}}
 
   /* ===== FOOTER ===== */
   footer{
@@ -436,10 +438,6 @@
   <div class="visit-card">
     <h4 class="display">مواعيد العمل</h4>
     <p>يوميًا<span>12 ظهرًا – 12 منتصف الليل</span></p>
-  </div>
-  <div class="visit-card">
-    <h4 class="display">العنوان</h4>
-    <p>هيتم تحديد العنوان قريبًا<span>ابعتلي العنوان بالظبط وأضيفه هنا</span></p>
   </div>
 </section>
 

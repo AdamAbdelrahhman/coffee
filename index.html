@@ -297,6 +297,116 @@
     transition:transform .2s;
   }
   .cart-fab:hover{transform:translateY(-2px);}
+
+  /* ===== CHATBOT ===== */
+  .chat-fab{
+    position:fixed;bottom:26px;right:26px;z-index:60;
+    width:58px;height:58px;border-radius:50%;
+    background:var(--surface);border:1px solid var(--gold);
+    color:var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    cursor:pointer;box-shadow:0 14px 30px rgba(0,0,0,0.4);
+    transition:transform .2s;
+  }
+  .chat-fab:hover{transform:translateY(-2px);}
+  .chat-fab svg{width:26px;height:26px;}
+  .chat-dot{
+    position:absolute;top:6px;right:6px;width:10px;height:10px;
+    border-radius:50%;background:var(--copper);
+    border:2px solid var(--bg);
+  }
+
+  .chat-panel{
+    position:fixed;bottom:96px;right:26px;z-index:65;
+    width:min(360px, 88vw);height:min(520px, 70vh);
+    background:var(--bg-2);
+    border:1px solid var(--line);
+    border-radius:20px;
+    display:flex;flex-direction:column;
+    overflow:hidden;
+    box-shadow:0 26px 60px rgba(0,0,0,0.55);
+    opacity:0;transform:translateY(16px) scale(.97);pointer-events:none;
+    transition:all .28s cubic-bezier(.22,1,.36,1);
+  }
+  .chat-panel.open{opacity:1;transform:translateY(0) scale(1);pointer-events:all;}
+
+  .chat-head{
+    padding:18px 20px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;justify-content:space-between;
+    background:var(--surface);
+  }
+  .chat-head-info{display:flex;align-items:center;gap:12px;}
+  .chat-avatar{
+    width:38px;height:38px;border-radius:50%;
+    background:var(--gold);color:#1a120b;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Fraunces',serif;font-weight:600;font-size:16px;
+  }
+  .chat-head h4{font-size:14px;font-weight:700;color:var(--cream);}
+  .chat-head p{font-size:11px;color:var(--gold-soft);}
+  .chat-close{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;}
+
+  .chat-body{
+    flex:1;overflow-y:auto;padding:18px;
+    display:flex;flex-direction:column;gap:12px;
+  }
+  .msg{max-width:82%;padding:11px 15px;border-radius:14px;font-size:13.5px;line-height:1.75;animation:msgIn .28s cubic-bezier(.22,1,.36,1);}
+  @keyframes msgIn{
+    from{opacity:0;transform:translateY(8px) scale(.97);}
+    to{opacity:1;transform:translateY(0) scale(1);}
+  }
+  .msg.bot{
+    background:var(--surface);border:1px solid var(--line);
+    align-self:flex-start;border-bottom-left-radius:4px;color:var(--cream);
+  }
+  .msg.user{
+    background:var(--gold);color:#1a120b;font-weight:600;
+    align-self:flex-end;border-bottom-right-radius:4px;
+  }
+  .typing{
+    align-self:flex-start;display:flex;gap:5px;align-items:center;
+    background:var(--surface);border:1px solid var(--line);
+    padding:13px 17px;border-radius:14px;border-bottom-left-radius:4px;
+    animation:msgIn .28s cubic-bezier(.22,1,.36,1);
+  }
+  .typing span{
+    width:6px;height:6px;border-radius:50%;background:var(--gold-soft);
+    animation:typingDot 1.1s ease-in-out infinite;
+  }
+  .typing span:nth-child(2){animation-delay:.15s;}
+  .typing span:nth-child(3){animation-delay:.3s;}
+  @keyframes typingDot{
+    0%,60%,100%{opacity:.3;transform:translateY(0);}
+    30%{opacity:1;transform:translateY(-3px);}
+  }
+  .chips{display:flex;flex-wrap:wrap;gap:8px;padding:0 18px 14px;}
+  .chip{
+    padding:8px 14px;border-radius:100px;border:1px solid var(--line);
+    background:var(--surface);color:var(--gold-soft);font-size:12px;
+    cursor:pointer;white-space:nowrap;transition:all .2s;
+  }
+  .chip:hover{border-color:var(--gold);color:var(--gold);}
+
+  .chat-input-row{
+    display:flex;gap:8px;padding:14px;border-top:1px solid var(--line);background:var(--surface);
+  }
+  .chat-input-row input{
+    flex:1;background:var(--bg);border:1px solid var(--line);
+    border-radius:100px;padding:11px 16px;color:var(--cream);font-size:13px;
+    outline:none;font-family:'Manrope',sans-serif;
+  }
+  .chat-input-row input:focus{border-color:var(--gold);}
+  .chat-send{
+    width:40px;height:40px;border-radius:50%;border:none;
+    background:var(--gold);color:#1a120b;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .chat-send svg{width:17px;height:17px;transform:scaleX(-1);}
+
+  @media(max-width:480px){
+    .chat-panel{right:14px;bottom:90px;}
+    .chat-fab{right:14px;}
+  }
   .cart-count{
     background:#1a1109;color:var(--gold);
     width:22px;height:22px;border-radius:50%;
@@ -460,6 +570,32 @@
   </div>
 </div>
 
+<button class="chat-fab" id="chatFab">
+  <span class="chat-dot"></span>
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+</button>
+
+<div class="chat-panel" id="chatPanel">
+  <div class="chat-head">
+    <div class="chat-head-info">
+      <div class="chat-avatar">A</div>
+      <div>
+        <h4 class="display">مساعد Adam's Coffee</h4>
+        <p>بيرد على طول</p>
+      </div>
+    </div>
+    <button class="chat-close" id="chatClose">✕</button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chips" id="chatChips"></div>
+  <div class="chat-input-row">
+    <input type="text" id="chatInput" placeholder="اكتب سؤالك هنا...">
+    <button class="chat-send" id="chatSend">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
 <script>
 const WHATSAPP_NUMBER = "201118751424";
 
@@ -564,6 +700,312 @@ document.getElementById('sendOrder').addEventListener('click', ()=>{
   });
   msg += "%0Aممكن تأكدلي السعر والتفاصيل؟";
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
+});
+
+/* ===== CHATBOT ===== */
+const chatFab = document.getElementById('chatFab');
+const chatPanel = document.getElementById('chatPanel');
+const chatBody = document.getElementById('chatBody');
+const chatChips = document.getElementById('chatChips');
+const chatInput = document.getElementById('chatInput');
+
+function normalize(text){
+  let t = text.toLowerCase().trim();
+  // franco-arabic numeral letters -> arabic letters (so franco typing also matches arabic keywords)
+  const francoMap = {
+    '2':'ء','3':'ع','5':'خ','6':'ط','7':'ح','8':'ق','9':'ص',
+    "3'":'غ','7\'':'خ'
+  };
+  t = t.replace(/2|3|5|6|7|8|9/g, m => francoMap[m] || m);
+  return t
+    .replace(/[أإآء]/g,'ا')
+    .replace(/ة/g,'ه')
+    .replace(/ى/g,'ي')
+    .replace(/[ًٌٍَُِّْ]/g,'')
+    .trim();
+}
+
+// extra franco-latin keyword sets merged into matching (handled directly inside knowledgeBase keywords arrays)
+
+
+const menuList = ['اسبريسو','لاتيه','سبانيش لاتيه','باشون بوبا','باشون فروت','قهوة تفاح وقرفه'].join('، ');
+
+const knowledgeBase = [
+  {
+    keywords:['منيو','منو','menu','اصناف','مشروبات','عندكو ايه','عندكم ايه','فيه ايه','eh el menu','fi eh','3andko eh'],
+    reply:`المنيو عندنا فيه: ${menuList}. تقدر تشوف كل صنف بتفاصيله في قسم المنيو فوق وتطلب على طول من غير ما تكلمني 😊`
+  },
+  {
+    keywords:['سعر','اسعار','as3ar','price','بكام','تمن','فلوس','be kam','kam el se3r','eh el se3r'],
+    reply:'الأسعار بتتقال لحظة تأكيد الطلب على واتساب، عشان كده ابعت طلبك وهيردوا عليك بالسعر والتفاصيل على طول.'
+  },
+  {
+    keywords:['مواعيد','ميعاد','sa3at','sa3a','open','فاتحين','قافلين','لحد امتي','امتى بتفتحوا','fathen wala la2','lehad emta','maw3ed'],
+    reply:'شغالين يوميًا من 12 ظهرًا لحد 12 بالليل.'
+  },
+  {
+    keywords:['اطلب','طلب','order','ازاي اطلب','عايز اطلب','delivery','دليفري','توصيل','3ayez atlob','ezay atlob','fi tawseel'],
+    reply:'اختار اللي عايزه من المنيو وحدد الكمية بزرار +، وبعدين دوس على زرار "طلبك" وابعت الطلب على واتساب مباشرة.'
+  },
+  {
+    keywords:['واتساب','whatsapp','رقم','رقمكم','تليفون','اتصال'],
+    reply:'تقدر تكلمنا مباشرة على واتساب: 01118751424'
+  },
+  {
+    keywords:['عنوان','فين','مكان','location','address'],
+    reply:'العنوان لسه بيتحدد، تابعنا وهنعلن المكان أول ما يبقى جاهز.'
+  },
+  {
+    keywords:['افضل','بيست سيلر','best seller','ايه تنصحني','ايه احسن حاجه'],
+    reply:'أكتر صنفين مطلوبين عندنا: اللاتيه والباشون بوبا 🔥'
+  },
+  {
+    keywords:['مين انتوا','من احنا','مين احنا','about','قصتكم'],
+    reply:'Adam\'s Coffee مشروع لسه في بدايته، شغالين على قهوة مظبوطة بعناية حقيقية من أول كوب.'
+  },
+  {
+    keywords:['سلام','السلام عليكم','هاي','hi','hello','ازيك','ايه الاخبار','ezayak','sa3ida','saha'],
+    reply:'أهلاً بيك في Adam\'s Coffee ☕ اسألني عن أي حاجة في المنيو أو المواعيد أو الطلب.'
+  },
+  {
+    keywords:['شكرا','متشكر','thanks','tnx','ثانكس'],
+    reply:'العفو، في خدمتك دايمًا ❤️'
+  },
+  {
+    keywords:['اسبريسو ايه','ايه هو الاسبريسو','what is espresso','اسبريسو يعني ايه'],
+    reply:'الإسبريسو هو قهوة مركّزة بتتعمل بضغط ميه سخنة على بن مطحون ناعم، شوت صغير وتقيل في الطعم وهو الأساس اللي بيتبني عليه أي مشروب قهوة تاني زي اللاتيه.'
+  },
+  {
+    keywords:['فرق بين اللاتيه','لاتيه ايه','ايه هو اللاتيه','latte ايه'],
+    reply:'اللاتيه هو إسبريسو + كمية كبيرة من اللبن المبخر الناعم، طعمه هادي وكريمي أكتر من الإسبريسو المركّز.'
+  },
+  {
+    keywords:['سبانيش لاتيه ايه','ايه هو سبانيش لاتيه','spanish latte ايه'],
+    reply:'السبانيش لاتيه هو لاتيه بس بيتحلّى بلبن مكثف محلى (Condensed Milk) بدل السكر العادي، فبيديله طعم كريمي وحلاوة مختلفة عن اللاتيه العادي.'
+  },
+  {
+    keywords:['فرق بين اللاتيه والكابتشينو','لاتيه ولا كابتشينو','cappuccino'],
+    reply:'اللاتيه فيه لبن أكتر وفوم أقل فطعمه أنعم، والكابتشينو نسبة الفوم فيه أعلى فطعمه أخف وأقوى في نكهة القهوة.'
+  },
+  {
+    keywords:['كافيين','كافايين','caffeine','بتصحي','بتخليني صاحي'],
+    reply:'الإسبريسو هو أعلى تركيز كافيين في الكوب الواحد، والمشروبات اللي فيها لبن زي اللاتيه بتكون بنفس كمية الإسبريسو تقريبًا بس حسها أخف لإن اللبن بيغطي على قوة الطعم.'
+  },
+  {
+    keywords:['ديكاف','decaf','من غير كافيين','بدون كافيين'],
+    reply:'دلوقتي مفيش خيار ديكاف في المنيو، بس ممكن تقول لنا وقت الطلب على واتساب ونشوف لو نقدر نظبطلك حاجة أخف في الكافيين.'
+  },
+  {
+    keywords:['نوع اللبن','لبن بقر','لبن نباتي','oat milk','لبن شوفان','لبن صويا'],
+    reply:'لو عايز نوع لبن معين (شوفان، لوز، صويا) قول لنا في رسالة الطلب على واتساب وهنشوف نقدر نظبطهولك ازاي.'
+  },
+  {
+    keywords:['اصل القهوة','منين القهوة','origin','تاريخ القهوة'],
+    reply:'القهوة أصلها من إثيوبيا، ومن هناك وصلت لليمن والعالم العربي قبل ما تنتشر في كل العالم كمشروب أساسي.'
+  },
+  {
+    keywords:['فاكهة الباشون','باشون فروت ايه','passion fruit ايه'],
+    reply:'الباشون فروت فاكهة استوائية بطعم حامض حلو ومنعش، بنستخدمها في مشروبين عندنا: باشون فروت وباشون بوبا (اللي فيها حبات البوبا كمان).'
+  },
+  {
+    keywords:['بوبا ايه','ايه هي البوبا','boba ايه','bubble tea'],
+    reply:'البوبا حبات صغيرة طرية من التابيوكا بتتضاف للمشروب، بتديله قوام ممتع وأنت بتشرب.'
+  },
+  {
+    keywords:['ارابيكا','روبوستا','arabica','robusta','انواع البن','نوع البن'],
+    reply:'أشهر نوعين بن في العالم هما الأرابيكا (نكهته أنعم وحموضته أعلى وده الغالب في القهوة المختصة) والروبوستا (كافيين أعلى ومرارة أقوى وغالبًا بيتحط في الخلطات أو النيسكافيه).'
+  },
+  {
+    keywords:['تحميص','روست','roast','فاتح غامق','تحميص فاتح','تحميص غامق'],
+    reply:'درجة التحميص بتتقسم لفاتح (حموضة أعلى ونكهات فاكهية واضحة) ووسط (متوازن) وغامق (مرارة أقوى وطعم أقرب للشوكولاتة المحروقة). كل درجة بتناسب طريقة تحضير مختلفة.'
+  },
+  {
+    keywords:['فرنش برس','french press'],
+    reply:'الفرنش برس طريقة تحضير بسيطة: بن مطحون خشن + ميه سخنة، بتسيبهم كده شوية دقايق وبعدين تكبس الفلتر لتحت. بتدي قهوة تقيلة القوام وحسها كامل.'
+  },
+  {
+    keywords:['قهوة تركي','قهوه تركيه','turkish coffee','تركي ايه'],
+    reply:'القهوة التركية بتتعمل ببن مطحون ناعم جدًا بيتغلي مع الميه (والسكر لو حابب) في كنكة، وبتتقدم من غير ما تتصفى فبيفضل في قاع الفنجان طبقة من البن.'
+  },
+  {
+    keywords:['موكا','moka pot','دله ايطالي'],
+    reply:'إبريق الموكا (Moka Pot) بيستخدم بخار الميه عشان يعدي من خلال البن ويطلعلك قهوة قريبة من الإسبريسو بس من غير الضغط العالي بتاعه.'
+  },
+  {
+    keywords:['v60','pour over','بور اوفر','تقطير'],
+    reply:'الـ V60 طريقة تحضير بتعتمد على صب الميه يدويًا على البن بشكل دائري، بتدي قهوة نضيفة وواضحة النكهة وبتحتاج شوية تمرين عشان تظبطها.'
+  },
+  {
+    keywords:['كولد برو','cold brew','قهوة باردة تحضير'],
+    reply:'الكولد برو هو نقع البن المطحون في ميه باردة لساعات طويلة (زي 12-24 ساعة)، بيطلع قهوة أقل حموضة وطعمها أنعم من القهوة العادية المثلجة.'
+  },
+  {
+    keywords:['ايس كوفي','قهوة مثلجة','iced coffee','فرق بين الايس كوفي والكولد برو'],
+    reply:'الآيس كوفي هو قهوة عادية سخنة اتحضرت وبعدين اتبرّدت على تلج، أما الكولد برو فبيتحضر بالميه الباردة من الأول، فطعمه بيبقى أنعم وأقل حموضة.'
+  },
+  {
+    keywords:['كريما','crema'],
+    reply:'الكريما هي الطبقة الرغوية الغامقة اللي بتطلع فوق شوت الإسبريسو، وبتدل على إن القهوة اتحضرت صح وبن طازة.'
+  },
+  {
+    keywords:['حموضة القهوة','acidity','body القهوة','قوام القهوة'],
+    reply:'الحموضة (Acidity) في القهوة مش حاجة وحشة، دي بتدي إحساس منعش زي الفاكهة، والـ Body هو تقيل أو خفة الإحساس في الفم. البن الفاتح غالبًا حموضته أعلى، والغامق جسمه أتقل.'
+  },
+  {
+    keywords:['نسبة البن للميه','ratio','مقاس الطحن','طحن ناعم خشن'],
+    reply:'كل طريقة تحضير ليها مقاس طحن مناسب: الإسبريسو محتاج طحن ناعم جدًا، الفرنش برس طحن خشن، والـ V60 طحن متوسط. ونسبة البن للميه بتختلف حسب الطريقة والتركيز اللي عايزه.'
+  },
+  {
+    keywords:['تخزين البن','ازاي احفظ البن','تخزين القهوة'],
+    reply:'أفضل حاجة تحفظ البن في عبوة محكمة الغلق بعيد عن الضوء والهوا والرطوبة، وميفضلش في التلاجة عشان الرطوبة بتأثر على الطعم.'
+  },
+  {
+    keywords:['فوايد القهوة','فوائد القهوة','coffee benefits','القهوة مفيدة'],
+    reply:'القهوة بالاعتدال بتدي طاقة وتركيز، وفيها مضادات أكسدة، بس زيها زي أي حاجة لازم اعتدال، وأفضل حد يسأل دكتوره لو عنده حالة صحية معينة.'
+  },
+  {
+    keywords:['اضرار القهوة','اكتار من القهوة','قهوة كتير','قهوة وحمل','قهوة وصيام'],
+    reply:'كتر القهوة ممكن يسبب أرق أو خفقان أو حرقان في المعدة عند بعض الناس. لو حامل أو عندك حالة صحية معينة أو بتصوم، الأفضل تستشير دكتورك بخصوص الكمية المناسبة ليك.'
+  },
+  {
+    keywords:['اكبر دول منتجه للقهوه','منتجين القهوة','دول القهوة','برازيل','فيتنام قهوة'],
+    reply:'البرازيل أكبر منتج قهوة في العالم، وبعدها فيتنام (غالبًا روبوستا)، وكولومبيا وإثيوبيا من أشهر مصادر الأرابيكا عالية الجودة.'
+  },
+  {
+    keywords:['قهوة مختصة','specialty coffee','فرق بين القهوة المختصة والعادية'],
+    reply:'القهوة المختصة (Specialty) بتتقيّم بمعايير جودة عالية من زراعة البن لحد التحضير، وبتركز على النكهة والمنشأ، عكس القهوة التجارية العادية اللي بتتعمل بكميات كبيرة من غير تركيز على التفاصيل دي.'
+  },
+  {
+    keywords:['قهوة عربي','قهوة سعودي','عزومة قهوة','قهوة بالهيل'],
+    reply:'القهوة العربي بتتحضر غالبًا بالهيل وبتتقدم في فناجين صغيرة من غير سكر، وهي جزء أساسي من الضيافة في مصر والخليج والعالم العربي.'
+  },
+  {
+    keywords:['اميركانو','امريكانو','americano'],
+    reply:'الأمريكانو هو شوت إسبريسو مخفف بميه سخنة، طعمه أخف من الإسبريسو بس أقوى من القهوة الفلتر العادية.'
+  },
+  {
+    keywords:['فلات وايت','flat white'],
+    reply:'الفلات وايت شبه اللاتيه بس بكمية لبن أقل ورغوة أنعم، فطعم القهوة فيه بيبقى أوضح.'
+  },
+  {
+    keywords:['كورتادو','cortado'],
+    reply:'الكورتادو إسبريسو بكمية صغيرة من اللبن المبخر بس، عشان يهدي حدة الإسبريسو من غير ما يغطي طعمه زي اللاتيه.'
+  },
+  {
+    keywords:['ماكياتو','macchiato'],
+    reply:'الماكياتو شوت إسبريسو "معلّم" برغوة لبن بسيطة فوقه بس، مش زي اللاتيه اللي فيه لبن كتير.'
+  },
+  {
+    keywords:['موكا قهوة','mocha','قهوة بالشوكولاتة'],
+    reply:'الموكا هو لاتيه بإضافة شوكولاتة، بيجمع بين طعم القهوة والحلاوة الغنية.'
+  },
+  {
+    keywords:['ريستريتو','لونجو','ristretto','lungo'],
+    reply:'الريستريتو شوت إسبريسو بميه أقل فطعمه أركز وأحلى، واللونجو عكسه بميه أكتر فطعمه أخف وأمر شوية.'
+  },
+  {
+    keywords:['أفوجاتو','affogato'],
+    reply:'الأفوجاتو حلو مش مشروب بس: عبارة عن سكوب آيس كريم فانيليا بيتسكب عليه شوت إسبريسو سخن فوقه.'
+  },
+  {
+    keywords:['حبة قهوة','ثمرة القهوة','coffee cherry','كرزة القهوة'],
+    reply:'حبة القهوة الأصلية بتطلع جوه ثمرة حمرا شكلها زي الكرز، وجوها بيبقى فيه بذرتين وهما اللي بيتحمصوا ويبقوا "حبة البن" اللي إحنا عارفينها.'
+  },
+  {
+    keywords:['معالجة البن','washed','natural process','honey process','تجهيز البن'],
+    reply:'في طرق لمعالجة حبة القهوة بعد القطف: Washed (غسيل) بيدي نكهة نضيفة وواضحة، Natural (تجفيف بالشمس) بيدي حلاوة وفاكهية أقوى، وHoney (وسط بينهم) بيدي توازن بين الاتنين.'
+  },
+  {
+    keywords:['ارتفاع الزراعة','altitude','ارتفاع القهوة'],
+    reply:'كل ما البن اتزرع في ارتفاع أعلى، كل ما نضجه بيبقى أبطأ وده بيدي نكهات أعقد وحموضة أوضح، عشان كده قهوة الارتفاعات العالية غالبًا أغلى وأميز.'
+  },
+  {
+    keywords:['نكهات القهوة','flavor notes','عجلة النكهات','tasting'],
+    reply:'بارستا القهوة المختصة بيوصفوا الطعم بنكهات زي الفاكهة أو الشوكولاتة أو المكسرات أو الزهور، حسب منشأ البن ودرجة تحميصه.'
+  },
+  {
+    keywords:['قهوة فرايفري','coffee subscription','اشتراك قهوة'],
+    reply:'فكرة اشتراك القهوة إنك تستلم كمية بن طازة بشكل دوري (أسبوعي أو شهري) بدل ما تشتري كل مرة، منتشرة في محامص القهوة المختصة.'
+  },
+  {
+    keywords:['طازة البن','بن طازة','تاريخ تحميص البن','قهوة قديمة'],
+    reply:'أفضل وقت لشرب البن يكون خلال أسابيع قليلة من تاريخ التحميص، لإن البن بيفقد نكهته وزيوته الطبيعية مع الوقت.'
+  },
+  {
+    keywords:['قهوة طازة ولا مطحونة','بن حب ولا مطحون','whole bean ولا ground'],
+    reply:'البن الحب (غير المطحون) بيحافظ على نكهته لفترة أطول، وأفضل حاجة تطحنه لحظة التحضير عشان توصل لأحسن طعم ممكن.'
+  }
+];
+
+const suggestedChips = ['المنيو', 'المواعيد', 'الطلب إزاي؟', 'إيه الفرق بين الأمريكانو والإسبريسو؟', 'إيه هو الأفوجاتو؟'];
+
+function addMessage(text, sender){
+  const div = document.createElement('div');
+  div.className = `msg ${sender}`;
+  div.textContent = text;
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function renderChips(){
+  chatChips.innerHTML = '';
+  suggestedChips.forEach(label=>{
+    const chip = document.createElement('button');
+    chip.className = 'chip';
+    chip.textContent = label;
+    chip.addEventListener('click', ()=>handleUserMessage(label));
+    chatChips.appendChild(chip);
+  });
+}
+
+function findReply(userText){
+  const norm = normalize(userText);
+  for(const entry of knowledgeBase){
+    if(entry.keywords.some(k => norm.includes(normalize(k)))){
+      return entry.reply;
+    }
+  }
+  return 'معنديش إجابة جاهزة على السؤال ده، بس تقدر تسألنا مباشرة على واتساب وهنردلك بكل التفاصيل: https://wa.me/' + WHATSAPP_NUMBER;
+}
+
+function showTyping(){
+  const div = document.createElement('div');
+  div.className = 'typing';
+  div.id = 'typingIndicator';
+  div.innerHTML = '<span></span><span></span><span></span>';
+  chatBody.appendChild(div);
+  chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function hideTyping(){
+  const el = document.getElementById('typingIndicator');
+  if(el) el.remove();
+}
+
+function handleUserMessage(text){
+  if(!text.trim()) return;
+  addMessage(text, 'user');
+  chatInput.value = '';
+  showTyping();
+  setTimeout(()=>{
+    hideTyping();
+    addMessage(findReply(text), 'bot');
+  }, 600);
+}
+
+chatFab.addEventListener('click', ()=>{
+  chatPanel.classList.add('open');
+  if(chatBody.children.length === 0){
+    addMessage('أهلاً بيك في Adam\'s Coffee ☕ اسألني عن أي حاجة في المنيو، المواعيد، أو إزاي تطلب.', 'bot');
+    renderChips();
+  }
+});
+document.getElementById('chatClose').addEventListener('click', ()=>{
+  chatPanel.classList.remove('open');
+});
+document.getElementById('chatSend').addEventListener('click', ()=>handleUserMessage(chatInput.value));
+chatInput.addEventListener('keydown', (e)=>{
+  if(e.key === 'Enter') handleUserMessage(chatInput.value);
 });
 </script>
 

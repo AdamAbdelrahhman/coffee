@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -529,12 +530,17 @@
   </div>
 
   <div class="category">
-    <div class="category-title"><h3 class="display">مشروبات باللبن</h3><div class="rule"></div></div>
-    <div id="cat-milk"></div>
+    <div class="category-title"><h3 class="display">لاتيهات ساخنة</h3><div class="rule"></div></div>
+    <div id="cat-hotlattes"></div>
   </div>
 
   <div class="category">
-    <div class="category-title"><h3 class="display">فاكهة ومشروبات مميزة</h3><div class="rule"></div></div>
+    <div class="category-title"><h3 class="display">مشروبات باردة</h3><div class="rule"></div></div>
+    <div id="cat-iced"></div>
+  </div>
+
+  <div class="category">
+    <div class="category-title"><h3 class="display">فاكهة ومشروبات منعشة</h3><div class="rule"></div></div>
     <div id="cat-specialty"></div>
   </div>
 
@@ -601,22 +607,43 @@ const WHATSAPP_NUMBER = "201156798867";
 const menuData = {
   espresso: [
     { id:'espresso', name:'إسبريسو', desc:'شوت إسبريسو تقيل، مضبوط ومركّز' },
+    { id:'cappuccino', name:'كابتشينو', desc:'إسبريسو مع رغوة لبن مبخر كلاسيكية' },
   ],
-  milk: [
+  hotlattes: [
     { id:'latte', name:'لاتيه', desc:'إسبريسو مع لبن مبخر ناعم', bestSeller:true },
-    { id:'spanish', name:'سبانيش لاتيه', desc:'لاتيه بلمسة حلاوة اللبن المكثف' },
+    { id:'spanish-latte', name:'سبانيش لاتيه', desc:'لاتيه بلمسة حلاوة اللبن المكثف' },
+    { id:'spicy-spanish-latte', name:'سبانيش لاتيه بالقرفة', desc:'لاتيه باللبن المكثف مع نكهة القرفة الدافئة' },
+    { id:'mocha', name:'موكا', desc:'لاتيه بصوص الشوكولاتة' },
+    { id:'white-mocha', name:'وايت موكا', desc:'لقاء القهوة بالشوكولاتة البيضاء، طعم غني وحلو وواضح النكهة' },
+    { id:'salted-caramel-latte', name:'سولتد كراميل لاتيه', desc:'دبل شوت إسبريسو مع لبن مبخر وصوص الكراميل المملح المميز عندنا' },
+    { id:'salted-vanilla-latte', name:'سولتد فانيليا لاتيه', desc:'لاتيه بنكهة الفانيليا المملحة' },
+    { id:'pistachio-latte', name:'بيستاشيو لاتيه', desc:'إسبريسو مع لبن مبخر وشراب الفستق' },
+    { id:'honey-cinnamon-latte', name:'هني سينامون لاتيه', desc:'دبل إسبريسو مع لبن مبخر وخلطة العسل والقرفة' },
+  ],
+  iced: [
+    { id:'iced-americano', name:'آيس أمريكانو', desc:'دبل إسبريسو مخفف بميه باردة وتلج' },
+    { id:'iced-latte', name:'آيس لاتيه', desc:'دبل إسبريسو مع لبن بارد وتلج' },
+    { id:'iced-spanish-latte', name:'آيس سبانيش لاتيه', desc:'لبن، إسبريسو، ولبن مكثف على تلج' },
+    { id:'salted-caramel-iced-latte', name:'آيس سولتد كراميل لاتيه', desc:'طعم غني وكريمي متوازن مع حلاوة شراب الكراميل المملح' },
+    { id:'spicy-iced-spanish-latte', name:'آيس سبانيش لاتيه بالقرفة', desc:'قهوة باللبن المكثف وصوص القرفة على تلج' },
+    { id:'iced-pistachio-latte', name:'آيس بيستاشيو لاتيه', desc:'آيس لاتيه بنكهة الفستق' },
+    { id:'salted-vanilla-iced-latte', name:'آيس سولتد فانيليا لاتيه', desc:'مزيج منعش من القهوة الباردة بالفانيليا مع لمسة ملح مميزة' },
+    { id:'iced-honey-cinnamon-latte', name:'آيس هني سينامون لاتيه', desc:'مزيج لذيذ من القهوة الباردة بالعسل الحلو ونكهة القرفة الدافئة' },
+    { id:'iced-white-mocha', name:'آيس وايت موكا', desc:'قهوة باردة مع إسبريسو ولبن وصوص الشوكولاتة البيضاء' },
   ],
   specialty: [
     { id:'passion-booba', name:'باشون بوبا', desc:'مشروب فاكهة الباشون بحبات البوبا', bestSeller:true },
     { id:'passion-fruit', name:'باشون فروت', desc:'مشروب فاكهة الباشون المنعش' },
     { id:'apple-cinnamon', name:'قهوة تفاح وقرفة', desc:'قهوة بنكهة التفاح والقرفة الدافئة' },
+    { id:'passion-mojito', name:'باشون موهيتو', desc:'موهيتو منعش بفاكهة الباشون الطازة والنعناع والليمون والسكر والتلج' },
+    { id:'passion-lemonade', name:'باشون ليموناضة', desc:'مزيج منعش بين طعم الباشون الاستوائي وحموضة الليمون الطازة، مثالي في الأيام الحارة' },
   ]
 };
 
 const cart = {};
 
 function renderMenu(){
-  const map = { espresso:'cat-espresso', milk:'cat-milk', specialty:'cat-specialty' };
+  const map = { espresso:'cat-espresso', hotlattes:'cat-hotlattes', iced:'cat-iced', specialty:'cat-specialty' };
   Object.keys(menuData).forEach(cat=>{
     const container = document.getElementById(map[cat]);
     menuData[cat].forEach(item=>{

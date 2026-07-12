@@ -186,12 +186,47 @@
   .category-title .rule{flex:1;height:1px;background:repeating-linear-gradient(90deg, var(--line) 0 6px, transparent 6px 12px);}
 
   .ticket{
-    display:flex;align-items:center;justify-content:space-between;gap:20px;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
     padding:20px 6px;
     border-bottom:1px solid var(--line);
   }
   .ticket:last-child{border-bottom:none;}
-  .ticket-info{display:flex;flex-direction:column;gap:6px;}
+  .ticket-left{display:flex;align-items:center;gap:16px;flex:1;min-width:0;}
+  .ticket-thumb{
+    width:56px;height:56px;border-radius:12px;object-fit:cover;flex-shrink:0;
+    border:1px solid var(--line);
+    cursor:zoom-in;
+    transition:transform .2s;
+  }
+  .ticket-thumb:hover{transform:scale(1.05);}
+
+  .lightbox{
+    position:fixed;inset:0;z-index:80;
+    background:rgba(10,7,4,0.88);
+    display:flex;align-items:center;justify-content:center;
+    opacity:0;pointer-events:none;
+    transition:opacity .25s ease;
+    padding:40px;
+  }
+  .lightbox.open{opacity:1;pointer-events:all;}
+  .lightbox img{
+    max-width:min(600px, 90vw);max-height:80vh;
+    border-radius:16px;border:1px solid var(--line);
+    transform:scale(.96);transition:transform .25s ease;
+    box-shadow:0 30px 70px rgba(0,0,0,0.5);
+  }
+  .lightbox.open img{transform:scale(1);}
+  .lightbox-close{
+    position:absolute;top:26px;right:26px;
+    width:42px;height:42px;border-radius:50%;
+    background:var(--surface);border:1px solid var(--line);color:var(--cream);
+    font-size:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+  }
+  .lightbox-caption{
+    position:absolute;bottom:36px;left:0;right:0;text-align:center;
+    color:var(--cream);font-family:'Fraunces',serif;font-size:16px;
+  }
+  .ticket-info{display:flex;flex-direction:column;gap:6px;min-width:0;}
   .ticket-info h4{font-family:'Fraunces',serif;font-weight:500;font-size:19px;color:var(--cream);}
   .ticket-info p{font-size:13px;color:var(--muted);}
   .ticket-price{font-size:13px;color:var(--gold-soft);letter-spacing:.05em;min-width:90px;text-align:left;}
@@ -619,6 +654,12 @@
   </div>
 </div>
 
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightboxClose">✕</button>
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
 <script>
 const WHATSAPP_NUMBER = "201156798867";
 
@@ -664,6 +705,28 @@ const cart = {};
 
 const BEST_SELLER_LABEL = { ar:'الأكثر طلبًا', en:'Best Seller' };
 
+const CATEGORY_IMAGES = {
+  espresso: 'https://images.unsplash.com/photo-1498241804937-a517467c0db6?w=200&q=60&auto=format&fit=crop',
+  hotlattes: 'https://images.unsplash.com/photo-1743034193060-8332b1fec210?w=200&q=60&auto=format&fit=crop',
+  iced: 'https://images.unsplash.com/photo-1527156231393-7023794f363c?w=200&q=60&auto=format&fit=crop',
+  specialty: 'https://images.unsplash.com/photo-1752756992329-961db6366376?w=200&q=60&auto=format&fit=crop',
+};
+const ITEM_IMAGES = {
+  cappuccino: 'https://images.unsplash.com/photo-1720214931419-7cb11ee42c59?w=200&q=60&auto=format&fit=crop',
+  'mocha': 'https://images.unsplash.com/photo-1533651441215-d01c13c8c4ad?w=200&q=60&auto=format&fit=crop',
+  'white-mocha': 'https://images.unsplash.com/photo-1533651441215-d01c13c8c4ad?w=200&q=60&auto=format&fit=crop',
+  'iced-white-mocha': 'https://images.unsplash.com/photo-1533651441215-d01c13c8c4ad?w=200&q=60&auto=format&fit=crop',
+  'spicy-spanish-latte': 'https://images.unsplash.com/photo-1643316408393-9328a1e973ed?w=200&q=60&auto=format&fit=crop',
+  'honey-cinnamon-latte': 'https://images.unsplash.com/photo-1643316408393-9328a1e973ed?w=200&q=60&auto=format&fit=crop',
+  'apple-cinnamon': 'https://images.unsplash.com/photo-1643316408393-9328a1e973ed?w=200&q=60&auto=format&fit=crop',
+  'salted-caramel-latte': 'https://images.unsplash.com/photo-1760662018512-e881f06d0fe0?w=200&q=60&auto=format&fit=crop',
+  'salted-caramel-iced-latte': 'https://images.unsplash.com/photo-1760662018512-e881f06d0fe0?w=200&q=60&auto=format&fit=crop',
+  'passion-booba': 'https://images.unsplash.com/photo-1747016804753-866c3ed6b3b7?w=200&q=60&auto=format&fit=crop',
+  'passion-fruit': 'https://images.unsplash.com/photo-1754594537133-796eb54f206c?w=200&q=60&auto=format&fit=crop',
+  'passion-lemonade': 'https://images.unsplash.com/photo-1754594537133-796eb54f206c?w=200&q=60&auto=format&fit=crop',
+  'passion-mojito': 'https://images.unsplash.com/photo-1753263453239-fef8e92b5040?w=200&q=60&auto=format&fit=crop',
+};
+
 function renderMenu(){
   const map = { espresso:'cat-espresso', hotlattes:'cat-hotlattes', iced:'cat-iced', specialty:'cat-specialty' };
   Object.keys(menuData).forEach(cat=>{
@@ -674,12 +737,17 @@ function renderMenu(){
       const name = currentLang === 'ar' ? item.name : item.name_en;
       const desc = currentLang === 'ar' ? item.desc : item.desc_en;
       const badgeLabel = BEST_SELLER_LABEL[currentLang];
+      const imgUrl = ITEM_IMAGES[item.id] || CATEGORY_IMAGES[cat];
+      const imgFull = imgUrl.replace('w=200', 'w=1000');
       const row = document.createElement('div');
       row.className = 'ticket';
       row.innerHTML = `
-        <div class="ticket-info">
-          <h4 class="display">${name}${item.bestSeller ? `<span class="badge">${badgeLabel}</span>` : ''}</h4>
-          <p>${desc}</p>
+        <div class="ticket-left">
+          <img class="ticket-thumb" src="${imgUrl}" data-full="${imgFull}" data-caption="${name}" alt="${name}" loading="lazy">
+          <div class="ticket-info">
+            <h4 class="display">${name}${item.bestSeller ? `<span class="badge">${badgeLabel}</span>` : ''}</h4>
+            <p>${desc}</p>
+          </div>
         </div>
         <div class="qty" data-id="${item.id}">
           <button class="minus">−</button>
@@ -691,7 +759,36 @@ function renderMenu(){
     });
   });
   attachQtyListeners();
+  attachThumbListeners();
 }
+
+/* ===== LIGHTBOX ===== */
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxCaption = document.getElementById('lightboxCaption');
+
+function attachThumbListeners(){
+  document.querySelectorAll('.ticket-thumb').forEach(thumb=>{
+    thumb.addEventListener('click', ()=>{
+      lightboxImg.src = thumb.dataset.full;
+      lightboxImg.alt = thumb.dataset.caption;
+      lightboxCaption.textContent = thumb.dataset.caption;
+      lightbox.classList.add('open');
+    });
+  });
+}
+
+function closeLightbox(){
+  lightbox.classList.remove('open');
+}
+document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+lightbox.addEventListener('click', (e)=>{
+  if(e.target === lightbox) closeLightbox();
+});
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape') closeLightbox();
+});
+
 renderMenu();
 
 function attachQtyListeners(){

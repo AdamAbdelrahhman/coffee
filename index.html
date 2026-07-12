@@ -56,6 +56,16 @@
     font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
     text-decoration:none;font-weight:600;
   }
+  .nav-right{display:flex;align-items:center;gap:22px;}
+  .lang-toggle{
+    display:flex;align-items:center;border:1px solid var(--line);border-radius:100px;
+    padding:4px;gap:2px;background:var(--surface);cursor:pointer;
+  }
+  .lang-toggle span{
+    padding:5px 12px;font-size:11px;font-weight:700;letter-spacing:.04em;
+    border-radius:100px;color:var(--muted);transition:all .2s;
+  }
+  .lang-toggle span.active{background:var(--gold);color:#1a120b;}
 
   /* ===== HERO ===== */
   .hero{
@@ -474,18 +484,24 @@
 
 <nav>
   <div class="brand" dir="ltr">Adam's <span>Coffee</span></div>
-  <a href="#menu" class="nav-link">المنيو</a>
+  <div class="nav-right">
+    <a href="#menu" class="nav-link" data-ar="المنيو" data-en="Menu">المنيو</a>
+    <div class="lang-toggle" id="langToggle">
+      <span data-lang="ar" class="active">AR</span>
+      <span data-lang="en">EN</span>
+    </div>
+  </div>
 </nav>
 
 <section class="hero">
   <div class="hero-inner">
     <div>
-      <div class="eyebrow">قهوة مختصة · طلب مباشر</div>
-      <h1 class="hero-title display">قهوتك<br><em>مظبوطة</em> يومياً</h1>
-      <p class="hero-sub">من الإسبريسو الكلاسيك لمشروبات الفاكهة المنعشة، كل كوب بيتحضر لحظة ما تطلبه. اختار من المنيو وابعت طلبك على طول.</p>
+      <div class="eyebrow" data-ar="قهوة مختصة · طلب مباشر" data-en="Specialty Coffee · Direct Order">قهوة مختصة · طلب مباشر</div>
+      <h1 class="hero-title display" id="heroTitle" data-ar="قهوتك<br><em>مظبوطة</em> يومياً" data-en="Your Coffee<br><em>Done Right</em> Daily">قهوتك<br><em>مظبوطة</em> يومياً</h1>
+      <p class="hero-sub" data-ar="من الإسبريسو الكلاسيك لمشروبات الفاكهة المنعشة، كل كوب بيتحضر لحظة ما تطلبه. اختار من المنيو وابعت طلبك على طول." data-en="From classic espresso to refreshing fruit drinks, every cup is made the moment you order it. Pick from the menu and send your order right away.">من الإسبريسو الكلاسيك لمشروبات الفاكهة المنعشة، كل كوب بيتحضر لحظة ما تطلبه. اختار من المنيو وابعت طلبك على طول.</p>
       <div class="hero-cta">
-        <a href="#menu" class="btn">شوف المنيو</a>
-        <a href="https://wa.me/201156798867" target="_blank" class="btn btn-outline">كلمنا واتساب</a>
+        <a href="#menu" class="btn" data-ar="شوف المنيو" data-en="View Menu">شوف المنيو</a>
+        <a href="https://wa.me/201156798867" target="_blank" class="btn btn-outline" data-ar="كلمنا واتساب" data-en="Chat on WhatsApp">كلمنا واتساب</a>
       </div>
     </div>
     <div class="cup-wrap">
@@ -497,7 +513,7 @@
       <img class="hero-photo" src="https://images.unsplash.com/photo-1743034193060-8332b1fec210?w=900&q=80&auto=format&fit=crop" alt="لاتيه Adam's Coffee">
     </div>
   </div>
-  <div class="scroll-cue"><span>انزل تحت</span><div class="line"></div></div>
+  <div class="scroll-cue"><span data-ar="انزل تحت" data-en="Scroll Down">انزل تحت</span><div class="line"></div></div>
 </section>
 
 <section class="gallery">
@@ -511,67 +527,69 @@
 <section class="about">
   <img class="about-photo" src="https://images.unsplash.com/photo-1752756992329-961db6366376?w=800&q=80&auto=format&fit=crop" alt="مين احنا">
   <div class="about-text">
-    <span class="eyebrow">مين احنا</span>
-    <h3 class="display">بداية جديدة، بشغف حقيقي</h3>
-    <p><span dir="ltr">Adam's Coffee</span> مشروع بيتبني دلوقتي، وهدفنا من أول يوم إننا نقدملك قهوة مظبوطة بعناية حقيقية - من اختيار البن لحد آخر تفصيلة في الكوب. لسه في البداية، وكل رأي أو طلب منك بيساعدنا نكبر صح.</p>
+    <span class="eyebrow" data-ar="مين احنا" data-en="About Us">مين احنا</span>
+    <h3 class="display" data-ar="بداية جديدة، بشغف حقيقي" data-en="A New Beginning, Real Passion">بداية جديدة، بشغف حقيقي</h3>
+    <p data-ar='<span dir="ltr">Adam&apos;s Coffee</span> مشروع بيتبني دلوقتي، وهدفنا من أول يوم إننا نقدملك قهوة مظبوطة بعناية حقيقية - من اختيار البن لحد آخر تفصيلة في الكوب. لسه في البداية، وكل رأي أو طلب منك بيساعدنا نكبر صح.' data-en="Adam&apos;s Coffee is a project being built right now. From day one our goal has been to give you coffee made with real care - from choosing the beans to the smallest detail in the cup. We're just getting started, and every bit of feedback helps us grow right.">
+      <span dir="ltr">Adam's Coffee</span> مشروع بيتبني دلوقتي، وهدفنا من أول يوم إننا نقدملك قهوة مظبوطة بعناية حقيقية - من اختيار البن لحد آخر تفصيلة في الكوب. لسه في البداية، وكل رأي أو طلب منك بيساعدنا نكبر صح.
+    </p>
   </div>
 </section>
 
 <section class="menu" id="menu">
   <div class="menu-head">
-    <div class="eyebrow">المنيو</div>
-    <h2 class="display">من غير ما نطول عليك</h2>
-    <p>اختار اللي نفسك فيه، حدد الكمية، وابعتلنا طلبك على واتساب</p>
+    <div class="eyebrow" data-ar="المنيو" data-en="Menu">المنيو</div>
+    <h2 class="display" data-ar="من غير ما نطول عليك" data-en="Straight To The Point">من غير ما نطول عليك</h2>
+    <p data-ar="اختار اللي نفسك فيه، حدد الكمية، وابعتلنا طلبك على واتساب" data-en="Pick what you're craving, set the quantity, and send us your order on WhatsApp">اختار اللي نفسك فيه، حدد الكمية، وابعتلنا طلبك على واتساب</p>
   </div>
 
   <div class="category">
-    <div class="category-title"><h3 class="display">إسبريسو</h3><div class="rule"></div></div>
+    <div class="category-title"><h3 class="display" data-ar="إسبريسو" data-en="Espresso">إسبريسو</h3><div class="rule"></div></div>
     <div id="cat-espresso"></div>
   </div>
 
   <div class="category">
-    <div class="category-title"><h3 class="display">لاتيهات ساخنة</h3><div class="rule"></div></div>
+    <div class="category-title"><h3 class="display" data-ar="لاتيهات ساخنة" data-en="Hot Lattes">لاتيهات ساخنة</h3><div class="rule"></div></div>
     <div id="cat-hotlattes"></div>
   </div>
 
   <div class="category">
-    <div class="category-title"><h3 class="display">مشروبات باردة</h3><div class="rule"></div></div>
+    <div class="category-title"><h3 class="display" data-ar="مشروبات باردة" data-en="Iced Drinks">مشروبات باردة</h3><div class="rule"></div></div>
     <div id="cat-iced"></div>
   </div>
 
   <div class="category">
-    <div class="category-title"><h3 class="display">فاكهة ومشروبات منعشة</h3><div class="rule"></div></div>
+    <div class="category-title"><h3 class="display" data-ar="فاكهة ومشروبات منعشة" data-en="Fruit & Refreshers">فاكهة ومشروبات منعشة</h3><div class="rule"></div></div>
     <div id="cat-specialty"></div>
   </div>
 
   <div class="note-section">
-    <p>الأسعار هتتقال لك مباشرة على واتساب وقت تأكيد الطلب <strong>·</strong> عايز حجم أو إضافة معينة؟ اكتبها في رسالة الطلب</p>
+    <p data-ar='الأسعار هتتقال لك مباشرة على واتساب وقت تأكيد الطلب <strong>·</strong> عايز حجم أو إضافة معينة؟ اكتبها في رسالة الطلب' data-en='Prices will be shared directly on WhatsApp when confirming your order <strong>·</strong> Want a specific size or add-on? Just mention it in your order message'>الأسعار هتتقال لك مباشرة على واتساب وقت تأكيد الطلب <strong>·</strong> عايز حجم أو إضافة معينة؟ اكتبها في رسالة الطلب</p>
   </div>
 </section>
 
 <section class="visit">
   <div class="visit-card">
-    <h4 class="display">مواعيد العمل</h4>
-    <p>يوميًا<span>12 ظهرًا – 12 منتصف الليل</span></p>
+    <h4 class="display" data-ar="مواعيد العمل" data-en="Working Hours">مواعيد العمل</h4>
+    <p data-ar='يوميًا<span>12 ظهرًا – 12 منتصف الليل</span>' data-en='Daily<span>12 PM – 12 AM</span>'>يوميًا<span>12 ظهرًا – 12 منتصف الليل</span></p>
   </div>
 </section>
 
 <footer>
   <div class="brand" dir="ltr">Adam's <span>Coffee</span></div>
-  <p>اتصل بنا على واتساب<br><span dir="ltr" style="unicode-bidi:isolate;">01156798867</span></p>
+  <p data-ar='اتصل بنا على واتساب<br><span dir="ltr" style="unicode-bidi:isolate;">01156798867</span>' data-en='Contact us on WhatsApp<br><span dir="ltr" style="unicode-bidi:isolate;">01156798867</span>'>اتصل بنا على واتساب<br><span dir="ltr" style="unicode-bidi:isolate;">01156798867</span></p>
 </footer>
 
 <button class="cart-fab" id="cartFab">
-  <span>طلبك</span>
+  <span data-ar="طلبك" data-en="Your Order">طلبك</span>
   <span class="cart-count" id="cartCount">0</span>
 </button>
 
 <div class="cart-panel" id="cartPanel">
   <div class="cart-sheet">
     <button class="close-cart" id="closeCart">✕</button>
-    <h3 class="display">طلبك</h3>
-    <div id="cartItems"><div class="cart-empty">لسه ما اخترتش حاجة من المنيو</div></div>
-    <button class="whatsapp-btn" id="sendOrder" disabled>ابعت الطلب على واتساب</button>
+    <h3 class="display" data-ar="طلبك" data-en="Your Order">طلبك</h3>
+    <div id="cartItems"><div class="cart-empty" data-ar="لسه ما اخترتش حاجة من المنيو" data-en="You haven't picked anything from the menu yet">لسه ما اخترتش حاجة من المنيو</div></div>
+    <button class="whatsapp-btn" id="sendOrder" disabled data-ar="ابعت الطلب على واتساب" data-en="Send Order on WhatsApp">ابعت الطلب على واتساب</button>
   </div>
 </div>
 
@@ -585,8 +603,8 @@
     <div class="chat-head-info">
       <div class="chat-avatar">A</div>
       <div>
-        <h4 class="display">مساعد Adam's Coffee</h4>
-        <p>بيرد على طول</p>
+        <h4 class="display" data-ar="مساعد Adam's Coffee" data-en="Adam's Coffee Assistant">مساعد Adam's Coffee</h4>
+        <p data-ar="بيرد على طول" data-en="Replies instantly">بيرد على طول</p>
       </div>
     </div>
     <button class="chat-close" id="chatClose">✕</button>
@@ -594,7 +612,7 @@
   <div class="chat-body" id="chatBody"></div>
   <div class="chips" id="chatChips"></div>
   <div class="chat-input-row">
-    <input type="text" id="chatInput" placeholder="اكتب سؤالك هنا...">
+    <input type="text" id="chatInput" placeholder="اكتب سؤالك هنا..." data-ar-placeholder="اكتب سؤالك هنا..." data-en-placeholder="Type your question...">
     <button class="chat-send" id="chatSend">
       <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg>
     </button>
@@ -606,77 +624,88 @@ const WHATSAPP_NUMBER = "201156798867";
 
 const menuData = {
   espresso: [
-    { id:'espresso', name:'إسبريسو', desc:'شوت إسبريسو تقيل، مضبوط ومركّز' },
-    { id:'cappuccino', name:'كابتشينو', desc:'إسبريسو مع رغوة لبن مبخر كلاسيكية' },
+    { id:'espresso', name:'إسبريسو', desc:'شوت إسبريسو تقيل، مضبوط ومركّز', name_en:'Espresso', desc_en:'A bold, concentrated shot, perfectly balanced' },
+    { id:'cappuccino', name:'كابتشينو', desc:'إسبريسو مع رغوة لبن مبخر كلاسيكية', name_en:'Cappuccino', desc_en:'Espresso-based coffee traditionally prepared with steamed milk foam' },
   ],
   hotlattes: [
-    { id:'latte', name:'لاتيه', desc:'إسبريسو مع لبن مبخر ناعم', bestSeller:true },
-    { id:'spanish-latte', name:'سبانيش لاتيه', desc:'لاتيه بلمسة حلاوة اللبن المكثف' },
-    { id:'spicy-spanish-latte', name:'سبانيش لاتيه بالقرفة', desc:'لاتيه باللبن المكثف مع نكهة القرفة الدافئة' },
-    { id:'mocha', name:'موكا', desc:'لاتيه بصوص الشوكولاتة' },
-    { id:'white-mocha', name:'وايت موكا', desc:'لقاء القهوة بالشوكولاتة البيضاء، طعم غني وحلو وواضح النكهة' },
-    { id:'salted-caramel-latte', name:'سولتد كراميل لاتيه', desc:'دبل شوت إسبريسو مع لبن مبخر وصوص الكراميل المملح المميز عندنا' },
-    { id:'salted-vanilla-latte', name:'سولتد فانيليا لاتيه', desc:'لاتيه بنكهة الفانيليا المملحة' },
-    { id:'pistachio-latte', name:'بيستاشيو لاتيه', desc:'إسبريسو مع لبن مبخر وشراب الفستق' },
-    { id:'honey-cinnamon-latte', name:'هني سينامون لاتيه', desc:'دبل إسبريسو مع لبن مبخر وخلطة العسل والقرفة' },
+    { id:'latte', name:'لاتيه', desc:'إسبريسو مع لبن مبخر ناعم', bestSeller:true, name_en:'Latte', desc_en:'One or two shots of espresso, steamed milk and a thin layer of milk foam on top' },
+    { id:'spanish-latte', name:'سبانيش لاتيه', desc:'لاتيه بلمسة حلاوة اللبن المكثف', name_en:'Spanish Latte', desc_en:'Espresso-based coffee with milk, sweetened using condensed milk' },
+    { id:'spicy-spanish-latte', name:'سبانيش لاتيه بالقرفة', desc:'لاتيه باللبن المكثف مع نكهة القرفة الدافئة', name_en:'Spicy Spanish Latte', desc_en:'Latte with cinnamon and condensed milk' },
+    { id:'mocha', name:'موكا', desc:'لاتيه بصوص الشوكولاتة', name_en:'Mocha', desc_en:'Latte with chocolate sauce' },
+    { id:'white-mocha', name:'وايت موكا', desc:'لقاء القهوة بالشوكولاتة البيضاء، طعم غني وحلو وواضح النكهة', name_en:'White Mocha', desc_en:'Where coffee meets white chocolate in a latte-style drink - rich, sweet-tasting and full of coffee flavour' },
+    { id:'salted-caramel-latte', name:'سولتد كراميل لاتيه', desc:'دبل شوت إسبريسو مع لبن مبخر وصوص الكراميل المملح المميز عندنا', name_en:'Salted Caramel Latte', desc_en:'Double shot espresso and steamed milk blended with our signature salted caramel sauce' },
+    { id:'salted-vanilla-latte', name:'سولتد فانيليا لاتيه', desc:'لاتيه بنكهة الفانيليا المملحة', name_en:'Salted Vanilla Latte', desc_en:'Coffee latte with salted vanilla' },
+    { id:'pistachio-latte', name:'بيستاشيو لاتيه', desc:'إسبريسو مع لبن مبخر وشراب الفستق', name_en:'Pistachio Latte', desc_en:'Made with espresso shots, steamed milk and pistachio syrup' },
+    { id:'honey-cinnamon-latte', name:'هني سينامون لاتيه', desc:'دبل إسبريسو مع لبن مبخر وخلطة العسل والقرفة', name_en:'Honey Cinnamon Latte', desc_en:'Double shot espresso with steamed milk, infused with our honey cinnamon sauce blend' },
   ],
   iced: [
-    { id:'iced-americano', name:'آيس أمريكانو', desc:'دبل إسبريسو مخفف بميه باردة وتلج' },
-    { id:'iced-latte', name:'آيس لاتيه', desc:'دبل إسبريسو مع لبن بارد وتلج' },
-    { id:'iced-spanish-latte', name:'آيس سبانيش لاتيه', desc:'لبن، إسبريسو، ولبن مكثف على تلج' },
-    { id:'salted-caramel-iced-latte', name:'آيس سولتد كراميل لاتيه', desc:'طعم غني وكريمي متوازن مع حلاوة شراب الكراميل المملح' },
-    { id:'spicy-iced-spanish-latte', name:'آيس سبانيش لاتيه بالقرفة', desc:'قهوة باللبن المكثف وصوص القرفة على تلج' },
-    { id:'iced-pistachio-latte', name:'آيس بيستاشيو لاتيه', desc:'آيس لاتيه بنكهة الفستق' },
-    { id:'salted-vanilla-iced-latte', name:'آيس سولتد فانيليا لاتيه', desc:'مزيج منعش من القهوة الباردة بالفانيليا مع لمسة ملح مميزة' },
-    { id:'iced-honey-cinnamon-latte', name:'آيس هني سينامون لاتيه', desc:'مزيج لذيذ من القهوة الباردة بالعسل الحلو ونكهة القرفة الدافئة' },
-    { id:'iced-white-mocha', name:'آيس وايت موكا', desc:'قهوة باردة مع إسبريسو ولبن وصوص الشوكولاتة البيضاء' },
+    { id:'iced-americano', name:'آيس أمريكانو', desc:'دبل إسبريسو مخفف بميه باردة وتلج', name_en:'Iced Americano', desc_en:'Double espresso diluted with cold water and ice' },
+    { id:'iced-latte', name:'آيس لاتيه', desc:'دبل إسبريسو مع لبن بارد وتلج', name_en:'Iced Latte', desc_en:'Double espresso with cold milk and ice' },
+    { id:'iced-spanish-latte', name:'آيس سبانيش لاتيه', desc:'لبن، إسبريسو، ولبن مكثف على تلج', name_en:'Iced Spanish Latte', desc_en:'Made with milk, espresso, and condensed milk' },
+    { id:'salted-caramel-iced-latte', name:'آيس سولتد كراميل لاتيه', desc:'طعم غني وكريمي متوازن مع حلاوة شراب الكراميل المملح', name_en:'Salted Caramel Iced Latte', desc_en:'Rich and creamy flavor balanced with the sweetness of salted caramel syrup' },
+    { id:'spicy-iced-spanish-latte', name:'آيس سبانيش لاتيه بالقرفة', desc:'قهوة باللبن المكثف وصوص القرفة على تلج', name_en:'Spicy Iced Spanish Latte', desc_en:'Coffee with condensed milk and cinnamon sauce' },
+    { id:'iced-pistachio-latte', name:'آيس بيستاشيو لاتيه', desc:'آيس لاتيه بنكهة الفستق', name_en:'Iced Pistachio Latte', desc_en:'Iced latte with pistachio flavor' },
+    { id:'salted-vanilla-iced-latte', name:'آيس سولتد فانيليا لاتيه', desc:'مزيج منعش من القهوة الباردة بالفانيليا مع لمسة ملح مميزة', name_en:'Salted Vanilla Iced Latte', desc_en:'A refreshing blend of cold coffee flavored with vanilla with a touch of salt' },
+    { id:'iced-honey-cinnamon-latte', name:'آيس هني سينامون لاتيه', desc:'مزيج لذيذ من القهوة الباردة بالعسل الحلو ونكهة القرفة الدافئة', name_en:'Iced Honey Cinnamon Latte', desc_en:'A delicious blend of cold coffee with sweet honey and warm cinnamon flavors' },
+    { id:'iced-white-mocha', name:'آيس وايت موكا', desc:'قهوة باردة مع إسبريسو ولبن وصوص الشوكولاتة البيضاء', name_en:'Iced White Mocha', desc_en:'Cold coffee with espresso, milk, and white chocolate sauce' },
   ],
   specialty: [
-    { id:'passion-booba', name:'باشون بوبا', desc:'مشروب فاكهة الباشون بحبات البوبا', bestSeller:true },
-    { id:'passion-fruit', name:'باشون فروت', desc:'مشروب فاكهة الباشون المنعش' },
-    { id:'apple-cinnamon', name:'قهوة تفاح وقرفة', desc:'قهوة بنكهة التفاح والقرفة الدافئة' },
-    { id:'passion-mojito', name:'باشون موهيتو', desc:'موهيتو منعش بفاكهة الباشون الطازة والنعناع والليمون والسكر والتلج' },
-    { id:'passion-lemonade', name:'باشون ليموناضة', desc:'مزيج منعش بين طعم الباشون الاستوائي وحموضة الليمون الطازة، مثالي في الأيام الحارة' },
+    { id:'passion-booba', name:'باشون بوبا', desc:'مشروب فاكهة الباشون بحبات البوبا', bestSeller:true, name_en:'Passion Booba', desc_en:'Passion fruit drink with boba pearls' },
+    { id:'passion-fruit', name:'باشون فروت', desc:'مشروب فاكهة الباشون المنعش', name_en:'Passion Fruit', desc_en:'A refreshing passion fruit drink' },
+    { id:'apple-cinnamon', name:'قهوة تفاح وقرفة', desc:'قهوة بنكهة التفاح والقرفة الدافئة', name_en:'Apple Cinnamon Coffee', desc_en:'Coffee flavored with apple and warm cinnamon' },
+    { id:'passion-mojito', name:'باشون موهيتو', desc:'موهيتو منعش بفاكهة الباشون الطازة والنعناع والليمون والسكر والتلج', name_en:'Passion Mojito', desc_en:'Refreshing passion mojito made with fresh passion fruit juice, aromatic mint leaves, lemon, sugar, and ice' },
+    { id:'passion-lemonade', name:'باشون ليموناضة', desc:'مزيج منعش بين طعم الباشون الاستوائي وحموضة الليمون الطازة، مثالي في الأيام الحارة', name_en:'Passion Lemonade', desc_en:'A refreshing drink combining the rich tropical flavor of passion fruit with zesty fresh lemon' },
   ]
 };
 
+let currentLang = 'ar';
+
 const cart = {};
+
+const BEST_SELLER_LABEL = { ar:'الأكثر طلبًا', en:'Best Seller' };
 
 function renderMenu(){
   const map = { espresso:'cat-espresso', hotlattes:'cat-hotlattes', iced:'cat-iced', specialty:'cat-specialty' };
   Object.keys(menuData).forEach(cat=>{
     const container = document.getElementById(map[cat]);
+    container.innerHTML = '';
     menuData[cat].forEach(item=>{
-      cart[item.id] = 0;
+      if(!(item.id in cart)) cart[item.id] = 0;
+      const name = currentLang === 'ar' ? item.name : item.name_en;
+      const desc = currentLang === 'ar' ? item.desc : item.desc_en;
+      const badgeLabel = BEST_SELLER_LABEL[currentLang];
       const row = document.createElement('div');
       row.className = 'ticket';
       row.innerHTML = `
         <div class="ticket-info">
-          <h4 class="display">${item.name}${item.bestSeller ? '<span class="badge">الأكثر طلبًا</span>' : ''}</h4>
-          <p>${item.desc}</p>
+          <h4 class="display">${name}${item.bestSeller ? `<span class="badge">${badgeLabel}</span>` : ''}</h4>
+          <p>${desc}</p>
         </div>
         <div class="qty" data-id="${item.id}">
           <button class="minus">−</button>
-          <span class="qty-val">0</span>
+          <span class="qty-val">${cart[item.id]}</span>
           <button class="plus">+</button>
         </div>
       `;
       container.appendChild(row);
     });
   });
+  attachQtyListeners();
 }
 renderMenu();
 
-document.querySelectorAll('.qty').forEach(q=>{
-  const id = q.dataset.id;
-  const valEl = q.querySelector('.qty-val');
-  q.querySelector('.plus').addEventListener('click', ()=>{
-    cart[id]++; valEl.textContent = cart[id]; updateCart();
+function attachQtyListeners(){
+  document.querySelectorAll('.qty').forEach(q=>{
+    const id = q.dataset.id;
+    const valEl = q.querySelector('.qty-val');
+    q.querySelector('.plus').addEventListener('click', ()=>{
+      cart[id]++; valEl.textContent = cart[id]; updateCart();
+    });
+    q.querySelector('.minus').addEventListener('click', ()=>{
+      if(cart[id] > 0){ cart[id]--; valEl.textContent = cart[id]; updateCart(); }
+    });
   });
-  q.querySelector('.minus').addEventListener('click', ()=>{
-    if(cart[id] > 0){ cart[id]--; valEl.textContent = cart[id]; updateCart(); }
-  });
-});
+}
 
 function getItemById(id){
   for(const cat in menuData){
@@ -693,8 +722,10 @@ function updateCart(){
   const cartItemsEl = document.getElementById('cartItems');
   const sendBtn = document.getElementById('sendOrder');
 
+  const emptyLabel = currentLang === 'ar' ? 'لسه ما اخترتش حاجة من المنيو' : "You haven't picked anything from the menu yet";
+
   if(items.length === 0){
-    cartItemsEl.innerHTML = '<div class="cart-empty">لسه ما اخترتش حاجة من المنيو</div>';
+    cartItemsEl.innerHTML = `<div class="cart-empty">${emptyLabel}</div>`;
     sendBtn.disabled = true;
     return;
   }
@@ -702,7 +733,8 @@ function updateCart(){
   sendBtn.disabled = false;
   cartItemsEl.innerHTML = items.map(id=>{
     const item = getItemById(id);
-    return `<div class="cart-item"><span class="name">${item.name}</span><span>× ${cart[id]}</span></div>`;
+    const name = currentLang === 'ar' ? item.name : item.name_en;
+    return `<div class="cart-item"><span class="name">${name}</span><span>× ${cart[id]}</span></div>`;
   }).join('');
 }
 
@@ -719,12 +751,15 @@ document.getElementById('cartPanel').addEventListener('click', (e)=>{
 document.getElementById('sendOrder').addEventListener('click', ()=>{
   const items = Object.keys(cart).filter(id=>cart[id] > 0);
   if(items.length === 0) return;
-  let msg = "أهلاً، عايز أطلب من Adam's Coffee:%0A%0A";
+  let msg = currentLang === 'ar'
+    ? "أهلاً، عايز أطلب من Adam's Coffee:%0A%0A"
+    : "Hi, I'd like to order from Adam's Coffee:%0A%0A";
   items.forEach(id=>{
     const item = getItemById(id);
-    msg += `- ${item.name} × ${cart[id]}%0A`;
+    const name = currentLang === 'ar' ? item.name : item.name_en;
+    msg += `- ${name} × ${cart[id]}%0A`;
   });
-  msg += "%0Aممكن تأكدلي السعر والتفاصيل؟";
+  msg += currentLang === 'ar' ? "%0Aممكن تأكدلي السعر والتفاصيل؟" : "%0ACould you confirm the price and details?";
   window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`, '_blank');
 });
 
@@ -1032,6 +1067,36 @@ document.getElementById('chatClose').addEventListener('click', ()=>{
 document.getElementById('chatSend').addEventListener('click', ()=>handleUserMessage(chatInput.value));
 chatInput.addEventListener('keydown', (e)=>{
   if(e.key === 'Enter') handleUserMessage(chatInput.value);
+});
+
+/* ===== LANGUAGE TOGGLE ===== */
+function applyLang(lang){
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+  document.querySelectorAll('[data-ar]').forEach(el=>{
+    const val = lang === 'ar' ? el.dataset.ar : el.dataset.en;
+    if(val !== undefined) el.innerHTML = val;
+  });
+  document.querySelectorAll('[data-ar-placeholder]').forEach(el=>{
+    const val = lang === 'ar' ? el.dataset.arPlaceholder : el.dataset.enPlaceholder;
+    if(val !== undefined) el.setAttribute('placeholder', val);
+  });
+
+  document.querySelectorAll('.lang-toggle span').forEach(s=>{
+    s.classList.toggle('active', s.dataset.lang === lang);
+  });
+
+  renderMenu();
+  updateCart();
+}
+
+document.getElementById('langToggle').addEventListener('click', (e)=>{
+  const target = e.target.closest('[data-lang]');
+  if(!target) return;
+  const lang = target.dataset.lang;
+  if(lang !== currentLang) applyLang(lang);
 });
 </script>
 
